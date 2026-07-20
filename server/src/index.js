@@ -10,6 +10,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import Anthropic from '@anthropic-ai/sdk';
 import db, { seed } from './db.js';
+import { notifyBooked, notifyStatusChange } from './mailer.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOADS = path.join(__dirname, '..', 'uploads');
@@ -251,7 +252,9 @@ app.post('/api/appointments', auth, (req, res) => {
   if (!doctorId || !title || !date) return res.status(400).json({ error: 'Missing required fields' });
   const info = db.prepare(`INSERT INTO appointments (patient_id, doctor_id, title, description, date, status) VALUES (?, ?, ?, ?, ?, 'pending')`)
     .run(req.user.id, doctorId, title, description, date);
-  res.json(db.prepare(`${APPT_SELECT} WHERE a.id=?`).get(info.lastInsertRowid));
+  const appt = db.prepare(`${APPT_SELECT} WHERE a.id=?`).get(info.lastInsertRowid);
+  notifyBooked({ patient: getUser(req.user.id), doctor: getUser(doctorId), appt });
+  res.json(appt);
 });
 
 app.put('/api/appointments/:id', auth, (req, res) => {
@@ -263,7 +266,11 @@ app.put('/api/appointments/:id', auth, (req, res) => {
   const { title = appt.title, description = appt.description, date = appt.date, status = appt.status } = req.body;
   db.prepare('UPDATE appointments SET title=?, description=?, date=?, status=? WHERE id=?')
     .run(title, description, date, status, appt.id);
-  res.json(db.prepare(`${APPT_SELECT} WHERE a.id=?`).get(appt.id));
+  const updated = db.prepare(`${APPT_SELECT} WHERE a.id=?`).get(appt.id);
+  if (status !== appt.status) {
+    notifyStatusChange({ patient: getUser(appt.patient_id), doctor: getUser(appt.doctor_id), appt: updated });
+  }
+  res.json(updated);
 });
 
 app.delete('/api/appointments/:id', auth, (req, res) => {
