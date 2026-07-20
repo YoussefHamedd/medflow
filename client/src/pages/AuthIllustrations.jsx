@@ -1,4 +1,31 @@
-/* Original, simple medical-themed SVG illustrations used on the auth pages. */
+/* Auth-page illustrations.
+   If the real artwork files exist in client/public/ they are used:
+     /signup-illustration.png  → Sign up page
+     /login-illustration.png   → Login page
+   Otherwise the drawn SVG stand-ins below are shown. */
+
+import { useState } from 'react';
+
+function IllustrationImage({ src, Fallback, maxWidth }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return <Fallback />;
+  return (
+    <img
+      src={src}
+      alt=""
+      style={{ maxWidth, width: '100%', height: 'auto' }}
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+export function SignupArt() {
+  return <IllustrationImage src="/signup-illustration.png" Fallback={SignupIllustration} maxWidth={440} />;
+}
+
+export function LoginArt() {
+  return <IllustrationImage src="/login-illustration.png" Fallback={LoginIllustration} maxWidth={420} />;
+}
 
 export function SignupIllustration() {
   return (

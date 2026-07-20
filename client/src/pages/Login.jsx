@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, homeFor } from '../auth.jsx';
-import { LoginIllustration } from './AuthIllustrations.jsx';
+import { LoginArt } from './AuthIllustrations.jsx';
 import { PersonIcon, BackIcon, MoonIcon } from '../icons.jsx';
 
 const LockIcon = (p) => (
@@ -42,7 +42,7 @@ export default function Login() {
         <MoonIcon size={18} style={{ color: 'var(--text-soft)' }} />
       </div>
       <div className="auth-page" style={{ minHeight: 'calc(100vh - 120px)', paddingTop: 0 }}>
-        <div className="auth-illustration"><LoginIllustration /></div>
+        <div className="auth-illustration"><LoginArt /></div>
         <div className="auth-form-wrap">
           <div className="login-panel">
             <button className="icon-btn" style={{ marginBottom: 4, color: 'var(--text-faint)' }} onClick={() => navigate('/join')}>

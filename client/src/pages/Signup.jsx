@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth, homeFor } from '../auth.jsx';
-import { SignupIllustration } from './AuthIllustrations.jsx';
+import { SignupArt } from './AuthIllustrations.jsx';
 import { MoonIcon } from '../icons.jsx';
 
 export default function Signup() {
@@ -35,7 +35,7 @@ export default function Signup() {
         <MoonIcon size={18} style={{ color: 'var(--text-soft)' }} />
       </div>
       <div className="auth-page" style={{ minHeight: 'calc(100vh - 120px)', paddingTop: 0 }}>
-        <div className="auth-illustration"><SignupIllustration /></div>
+        <div className="auth-illustration"><SignupArt /></div>
         <div className="auth-form-wrap">
           <h1>Sign up</h1>
           <div className="auth-sub">Hi there welcome to our family ✌️</div>
