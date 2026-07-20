@@ -13,7 +13,7 @@ function IllustrationImage({ src, Fallback, maxWidth }) {
     <img
       src={src}
       alt=""
-      style={{ maxWidth, width: '100%', height: 'auto' }}
+      style={{ maxWidth, width: '100%', height: 'auto', borderRadius: 16 }}
       onError={() => setFailed(true)}
     />
   );

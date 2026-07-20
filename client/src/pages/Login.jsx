@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, homeFor } from '../auth.jsx';
 import { LoginArt } from './AuthIllustrations.jsx';
-import { PersonIcon, BackIcon, MoonIcon } from '../icons.jsx';
+import ThemeToggle from '../components/ThemeToggle.jsx';
+import { PersonIcon, BackIcon } from '../icons.jsx';
 
 const LockIcon = (p) => (
   <svg width={p.size || 15} height={p.size || 15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -39,7 +40,7 @@ export default function Login() {
   return (
     <div className="shell" style={{ display: 'block' }}>
       <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '18px 24px 0' }}>
-        <MoonIcon size={18} style={{ color: 'var(--text-soft)' }} />
+        <ThemeToggle />
       </div>
       <div className="auth-page" style={{ minHeight: 'calc(100vh - 120px)', paddingTop: 0 }}>
         <div className="auth-illustration"><LoginArt /></div>

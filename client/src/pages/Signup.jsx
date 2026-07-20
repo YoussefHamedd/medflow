@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth, homeFor } from '../auth.jsx';
 import { SignupArt } from './AuthIllustrations.jsx';
-import { MoonIcon } from '../icons.jsx';
+import ThemeToggle from '../components/ThemeToggle.jsx';
 
 export default function Signup() {
   const { register } = useAuth();
@@ -32,7 +32,7 @@ export default function Signup() {
   return (
     <div className="shell" style={{ display: 'block' }}>
       <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '18px 24px 0' }}>
-        <MoonIcon size={18} style={{ color: 'var(--text-soft)' }} />
+        <ThemeToggle />
       </div>
       <div className="auth-page" style={{ minHeight: 'calc(100vh - 120px)', paddingTop: 0 }}>
         <div className="auth-illustration"><SignupArt /></div>

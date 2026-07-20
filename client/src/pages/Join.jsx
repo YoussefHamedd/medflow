@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MoonIcon } from '../icons.jsx';
+import ThemeToggle from '../components/ThemeToggle.jsx';
 
 function PatientMiniIcon() {
   return (
@@ -32,7 +32,7 @@ export default function Join() {
       <div className="join-wrap">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <h1>Join as a Patient or Doctor</h1>
-          <MoonIcon size={16} style={{ color: 'var(--text-soft)' }} />
+          <ThemeToggle />
         </div>
         <div className="join-cards">
           <button className={`join-card${role === 'patient' ? ' selected' : ''}`} onClick={() => setRole('patient')}>

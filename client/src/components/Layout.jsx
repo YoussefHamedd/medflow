@@ -2,21 +2,15 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import Logo from './Logo.jsx';
 import Avatar from './Avatar.jsx';
-import { MoonIcon, SunIcon } from '../icons.jsx';
+import ThemeToggle from './ThemeToggle.jsx';
 import { useAuth } from '../auth.jsx';
 import { Toasts } from '../toast.jsx';
 
 export default function Layout({ nav, settingsPath, children }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [dark, setDark] = useState(() => localStorage.getItem('medflow_dark') === '1');
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark);
-    localStorage.setItem('medflow_dark', dark ? '1' : '0');
-  }, [dark]);
 
   useEffect(() => {
     const close = (e) => menuRef.current && !menuRef.current.contains(e.target) && setMenuOpen(false);
@@ -36,9 +30,7 @@ export default function Layout({ nav, settingsPath, children }) {
       </aside>
       <div className="main">
         <header className="topbar">
-          <button className="icon-btn" title="Toggle dark mode" onClick={() => setDark((d) => !d)}>
-            {dark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
-          </button>
+          <ThemeToggle />
           <div ref={menuRef} style={{ position: 'relative' }}>
             <button className="avatar-btn" onClick={() => setMenuOpen((o) => !o)}>
               <Avatar user={user} size={32} />

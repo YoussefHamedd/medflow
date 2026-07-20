@@ -21,7 +21,7 @@ export default function Avatar({ user, size = 36 }) {
   return (
     <div style={style}>
       <svg width={size} height={size} viewBox="0 0 40 40">
-        <circle cx="20" cy="20" r="20" fill="#e6e8e7" />
+        <circle cx="20" cy="20" r="20" fill="var(--surface-2)" />
         <circle cx="20" cy="15" r="7" fill="#8b9390" />
         <path d="M6 38c1.5-8 7-12 14-12s12.5 4 14 12" fill="#8b9390" />
       </svg>

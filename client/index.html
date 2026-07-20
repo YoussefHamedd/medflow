@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <title>MedFlow — Healthcare Solutions</title>
+    <script>
+      // apply saved theme before anything renders
+      if (localStorage.getItem('medflow_dark') === '1') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
