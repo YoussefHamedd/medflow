@@ -5,19 +5,13 @@ import Dropdown from '../components/Dropdown.jsx';
 import Modal from '../components/Modal.jsx';
 import Avatar from '../components/Avatar.jsx';
 import { toast } from '../toast.jsx';
-import { SearchIcon, ChatIcon } from '../icons.jsx';
+import { SearchIcon, ChatIcon, PersonIcon } from '../icons.jsx';
 
 function DoctorPhoto({ doctor }) {
   if (doctor.avatar) {
     return <img src={doctor.avatar} alt="" />;
   }
-  // gray silhouette placeholder, like the reference app
-  return (
-    <svg width="130" height="130" viewBox="0 0 40 40">
-      <circle cx="20" cy="14" r="8" fill="#9aa19e" />
-      <path d="M3 40c2-10 8.5-15 17-15s15 5 17 15" fill="#9aa19e" />
-    </svg>
-  );
+  return <PersonIcon size={82} aria-label="Default profile" />;
 }
 
 function BookModal({ doctor, onClose, onBooked }) {

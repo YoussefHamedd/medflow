@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../api.js';
 import { useAuth } from '../auth.jsx';
 import Avatar from '../components/Avatar.jsx';
-import { MedkitSolid, PersonPlusSolid, DocPlusSolid, HandPlusSolid, ChatPlusSolid, ArrowRight, ChatIcon } from '../icons.jsx';
+import { MedkitSolid, PersonPlusSolid, DocPlusSolid, HandPlusSolid, ChatPlusSolid, ArrowRight, ReplyIcon } from '../icons.jsx';
 
 const MONTHS = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
@@ -100,7 +100,7 @@ export default function Dashboard({ role }) {
               <div className="body">{lastMessage.text}</div>
               <div style={{ display: 'flex' }}>
                 <button className="answer" onClick={() => navigate(`/${role}/messages?with=${other.id}`)}>
-                  <ChatIcon size={14} /> Answer
+                  <ReplyIcon size={14} /> Answer
                 </button>
               </div>
             </div>

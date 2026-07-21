@@ -7,7 +7,7 @@ import Dropdown from '../components/Dropdown.jsx';
 import RowMenu from '../components/RowMenu.jsx';
 import Avatar from '../components/Avatar.jsx';
 import { ConfirmDialog } from '../components/Modal.jsx';
-import { SearchIcon } from '../icons.jsx';
+import { KebabIcon, SearchIcon } from '../icons.jsx';
 
 function PatientChip({ patient, onMessage }) {
   const [open, setOpen] = useState(false);
@@ -23,9 +23,7 @@ function PatientChip({ patient, onMessage }) {
       <div className="name">{patient.first_name} {patient.last_name}</div>
       <div ref={ref} style={{ position: 'relative' }}>
         <button className="kebab" onClick={() => setOpen((o) => !o)}>
-          <svg width="15" height="15" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round">
-            <path d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
+          <KebabIcon size={15} />
         </button>
         {open && (
           <div className="dropdown-menu" style={{ right: 0 }} onClick={() => setOpen(false)}>

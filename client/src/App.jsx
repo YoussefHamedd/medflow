@@ -16,6 +16,7 @@ import Admins from './pages/admin/Admins.jsx';
 import AdminDoctors from './pages/admin/AdminDoctors.jsx';
 import {
   HomeIcon, ClockIcon, FileIcon, BriefcaseIcon, ChatIcon, BotIcon, UsersIcon,
+  AdminIcon, AdminPatientsIcon,
 } from './icons.jsx';
 
 const PATIENT_NAV = [
@@ -34,8 +35,8 @@ const DOCTOR_NAV = [
 ];
 
 const ADMIN_NAV = [
-  { to: '/admin', label: 'Admins', icon: HomeIcon, end: true },
-  { to: '/admin/patients', label: 'Patients', icon: FileIcon },
+  { to: '/admin', label: 'Admins', icon: AdminIcon, end: true },
+  { to: '/admin/patients', label: 'Patients', icon: AdminPatientsIcon },
   { to: '/admin/doctors', label: 'Doctors', icon: BriefcaseIcon },
 ];
 
