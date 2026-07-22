@@ -77,7 +77,25 @@ try {
 
 export function seed() {
   const count = db.prepare('SELECT COUNT(*) AS n FROM users').get().n;
-  if (count > 0) return;
+  const demoAvatars = {
+    'admin@medflow.com': 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop',
+    'doctor@medflow.com': 'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop',
+    'gestumodro@gufum.com': 'https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop',
+    'patient@medflow.com': 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop',
+    'befyefufyo@gufum.com': 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop',
+    'batobov826@cutxsew.com': 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop',
+  };
+  const syncDemoAvatars = () => {
+    const updateAvatar = db.prepare('UPDATE users SET avatar = ? WHERE email = ?');
+    const updateAll = db.transaction(() => {
+      Object.entries(demoAvatars).forEach(([email, avatar]) => updateAvatar.run(avatar, email));
+    });
+    updateAll();
+  };
+  if (count > 0) {
+    syncDemoAvatars();
+    return;
+  }
   const hash = bcrypt.hashSync('password123', 10);
   const insert = db.prepare(`INSERT INTO users
     (role, first_name, last_name, email, password_hash, phone, gender, description, specialty, services, admin_role)
@@ -90,7 +108,7 @@ export function seed() {
     phone: '22898972', gender: 'female', specialty: 'therapist', services: 'service 1,service 2,service 3',
     description: "I'm a dedicated therapist with expertise in cognitive-behavioral therapy (CBT), mindfulness, and trauma-informed care. I help individuals navigate anxiety, depression, and life transitions by providing a supportive and non-judgmental space for personal growth and healing. Passionate about mental health advocacy and empowering clients to improve their emotional wellbeing."
   });
-  db.prepare(`UPDATE users SET qualifications = 'qualification 1,qualification 2,qualification 3', avatar = '/uploads/soulaima.svg' WHERE id = ?`)
+  db.prepare(`UPDATE users SET qualifications = 'qualification 1,qualification 2,qualification 3' WHERE id = ?`)
     .run(doc1.lastInsertRowid);
   const doc2 = insert.run({ ...base, role: 'doctor', first_name: 'gestu', last_name: 'modro', email: 'gestumodro@gufum.com', gender: 'male', specialty: 'therapist', services: 'service 1,service 2' });
   const pat1 = insert.run({ ...base, role: 'patient', first_name: 'alex', last_name: 'smith', email: 'patient@medflow.com', gender: 'male' });
@@ -117,6 +135,8 @@ export function seed() {
   const msg = db.prepare('INSERT INTO messages (sender_id, receiver_id, text) VALUES (?, ?, ?)');
   msg.run(pat1.lastInsertRowid, doc1.lastInsertRowid, 'hi doctor');
   msg.run(doc1.lastInsertRowid, pat1.lastInsertRowid, 'Hi, how can i help you ?');
+
+  syncDemoAvatars();
 
   console.log('Seeded database. Logins: admin@medflow.com / doctor@medflow.com / patient@medflow.com — password: password123');
 }
